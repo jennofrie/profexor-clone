@@ -2,7 +2,7 @@
 
 A production-grade static site clone of a Frankfurt-based hybrid production studio, rebuilt with full fidelity to the original design and interactions.
 
-Built by **[Profexor](https://profexor.cloud)**.
+Built by **[Profexor](mailto:profexor@atomicmail.io)**.
 
 ---
 
@@ -70,7 +70,7 @@ Note: WebGL requires serving over HTTP (not `file://`) due to browser security r
 
 ## Credits
 
-Engineered by **[Profexor](https://profexor.cloud)** — hybrid production studio, Frankfurt.
+Engineered by **[Profexor](mailto:profexor@atomicmail.io)** — Victoria, Australia.
 
 ---
 
