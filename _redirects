@@ -1,0 +1,4 @@
+# Media assets are hosted on Cloudflare R2
+# Replace R2_PUBLIC_URL with your actual R2 bucket public URL
+# Example: https://pub-abc123.r2.dev  OR  https://media.profexor.cloud
+/wp-content/uploads/*  R2_PUBLIC_URL/wp-content/uploads/:splat  200
