@@ -1,0 +1,9 @@
+{
+  "name": "gl",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "GL.js",
+  "scripts": {
+    "build": "node init.js"
+  }
+}

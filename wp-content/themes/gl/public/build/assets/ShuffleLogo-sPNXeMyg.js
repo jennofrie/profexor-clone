@@ -1,0 +1,1 @@
+import{p as s,s as i}from"./app-Dh8-Jb6c.js";customElements.define("c-shuffle-logo",class ShuffleLogo extends s{mount(){this.events()}unmount(){this.off("click",this,this.onClick)}events(){this.onClick=this.onClick.bind(this),this.on("click",this,this.onClick)}onClick(){i.GL.artefakt.shuffleEffect()}resize(){}});

@@ -1,0 +1,1 @@
+import{p as o,s as t}from"./app-Cd2tpxcC.js";customElements.define("c-back-to-top",class BackToTop extends o{mount(){this.onClick=this.onClick.bind(this),this.on("click",this,this.onClick)}unmount(){this.off("click",this,this.onClick)}onClick(){t.smoothScroll.scrollTo(0,{force:!0}),t.emitter.emit("scroll-to")}});

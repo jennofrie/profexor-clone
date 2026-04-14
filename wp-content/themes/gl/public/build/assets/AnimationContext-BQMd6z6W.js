@@ -1,0 +1,1 @@
+class AnimationContext{constructor(){this.animations=[]}add(i){const t=Array.isArray(i)?i:[i];this.animations.push(...t)}kill(){this.animations.forEach(i=>i&&i.kill()),this.animations=[]}}export{AnimationContext as A};
