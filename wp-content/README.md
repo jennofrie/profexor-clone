@@ -1,26 +1,55 @@
-# wp-content/
+# Profexor frontend assets
 
-Static asset directory structure, mirroring a compiled WordPress theme output.
+This directory mirrors the public path structure of the compiled WordPress
+theme while remaining deployable as a static site.
 
-```
+```text
 wp-content/
 ├── themes/
 │   └── gl/
-│       ├── public/build/       # Vite-compiled CSS and JS bundles
+│       ├── public/build/assets/      # Compiled CSS, JS modules, and fonts
 │       └── resources/
-│           ├── js/GL/          # WebGL source — Three.js, GLSL shaders, DRACO loader
-│           └── favicon/        # All favicon sizes and web manifest
-└── uploads/                    # Media assets (excluded via .gitignore — host externally)
+│           ├── favicon/              # Favicons and web manifest
+│           └── js/GL/                # WebGL sources, shaders, DRACO, GLBs
+└── uploads/                           # Excluded from Git; served by media origin
 ```
 
-## themes/gl
+## Compiled theme
 
-The `gl` theme contains the compiled frontend. Key artifacts:
+The site references production-ready Vite output directly from every standalone
+HTML page.
 
-- `public/build/assets/app-*.css` — Tailwind CSS output, custom animations
-- `public/build/assets/app-*.js` — Bundled JavaScript (GSAP, Three.js, custom web components)
-- `resources/js/GL/` — Original WebGL source before bundling (Three.js particle system, GLSL shaders, DRACO decoder)
+| Path | Role |
+|---|---|
+| `themes/gl/public/build/assets/app-DZbACm4C.css` | Compiled layout, typography, and motion styles. |
+| `themes/gl/public/build/assets/app-profexor-v2.js` | Immutable Profexor production entry module. |
+| `themes/gl/public/build/assets/*-profexor-v2.js` | Coordinated versioned lazy-module graph. |
+| `themes/gl/public/build/assets/*.woff2` | Bundled display and monospace fonts. |
+| `themes/gl/resources/js/GL/` | Three.js/GPGPU sources and model assets. |
 
-## uploads/
+The previous compiled graphs remain in the repository for rollback. Production
+HTML points only to the current v2 entry graph.
 
-Media files (`.mp4`, `.jpg`, `.jpeg`) are not included in this repository due to file size and copyright. Serve these assets from a CDN or local media server when running the site.
+## WebGL assets
+
+`themes/gl/resources/js/GL/sources/` contains the current Profexor display and
+hitbox meshes:
+
+- `profexor-wordmark-v2.glb`
+- `profexor-wordmark-hitbox-v2.glb`
+
+Their deterministic generator and integration checks live in
+[`../tools/profexor-model/`](../tools/profexor-model/README.md). Runtime details
+live in [`themes/gl/resources/js/GL/README.md`](themes/gl/resources/js/GL/README.md).
+
+## Uploads and media
+
+Large `.mp4`, `.jpg`, and `.jpeg` uploads are intentionally excluded from the
+repository. In production, Netlify rewrites `/wp-content/uploads/*` to the
+read-only media service at `media.profexer.cloud`, preserving the original URL
+shape and byte-range video playback.
+
+See [`../ops/media-origin/README.md`](../ops/media-origin/README.md) for the
+service definition and verification commands.
+
+Maintained by **Profexor**.
