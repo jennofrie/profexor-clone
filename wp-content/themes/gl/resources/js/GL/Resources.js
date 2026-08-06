@@ -11,12 +11,12 @@ export default class Resources {
     this.toLoad = [
       {
         name: 'logo',
-        file: 'profexor-wordmark-v1.glb',
+        file: 'profexor-wordmark-v2.glb',
         loader: 'gltfLoader'
       },
       {
         name: 'logoLowPoly',
-        file: 'profexor-wordmark-hitbox-v1.glb',
+        file: 'profexor-wordmark-hitbox-v2.glb',
         loader: 'gltfLoader'
       }
     ]

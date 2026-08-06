@@ -7,11 +7,12 @@ const assetsDirectory = path.join(
   'wp-content/themes/gl/public/build/assets'
 )
 const inputBundleName = 'app-Cd2tpxcC.js'
-const outputBundleName = 'app-profexor-v1.js'
-const versionTag = 'profexor-v1'
+const previousBundleNames = [inputBundleName, 'app-profexor-v1.js']
+const outputBundleName = 'app-profexor-v2.js'
+const versionTag = 'profexor-v2'
 const modelReplacements = new Map([
-  ['artefakt.glb', 'profexor-wordmark-v1.glb'],
-  ['artefakt-low-poly.glb', 'profexor-wordmark-hitbox-v1.glb']
+  ['artefakt.glb', 'profexor-wordmark-v2.glb'],
+  ['artefakt-low-poly.glb', 'profexor-wordmark-hitbox-v2.glb']
 ])
 
 function countOccurrences(source, search) {
@@ -121,12 +122,18 @@ async function updateHtmlReferences() {
   let currentReferences = 0
 
   for (const file of htmlFiles) {
-    const source = await fs.readFile(file, 'utf8')
-    const oldCount = countOccurrences(source, inputBundleName)
+    let source = await fs.readFile(file, 'utf8')
     const currentCount = countOccurrences(source, outputBundleName)
+    let oldCount = 0
+
+    for (const previousBundleName of previousBundleNames) {
+      const occurrences = countOccurrences(source, previousBundleName)
+      oldCount += occurrences
+      source = source.replaceAll(previousBundleName, outputBundleName)
+    }
 
     if (oldCount > 0) {
-      await fs.writeFile(file, source.replaceAll(inputBundleName, outputBundleName))
+      await fs.writeFile(file, source)
       replacedReferences += oldCount
     }
 
@@ -179,8 +186,12 @@ async function verifyIntegration(assetNames) {
   for (const file of htmlFiles) {
     const source = await fs.readFile(file, 'utf8')
 
-    if (source.includes(inputBundleName)) {
-      throw new Error(`${path.relative(projectRoot, file)} still references ${inputBundleName}`)
+    for (const previousBundleName of previousBundleNames) {
+      if (source.includes(previousBundleName)) {
+        throw new Error(
+          `${path.relative(projectRoot, file)} still references ${previousBundleName}`
+        )
+      }
     }
   }
 }
