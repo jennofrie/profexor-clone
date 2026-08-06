@@ -52,7 +52,20 @@ Source files live in `wp-content/themes/gl/resources/js/GL/`.
 
 Video and image uploads are excluded from this repository (see `.gitignore`).
 
-The site references media from `wp-content/uploads/` — host these via CDN or local storage when serving the site.
+In production, Netlify rewrites `wp-content/uploads/*` to the dedicated media
+origin at `media.profexer.cloud`. That origin serves the upload library from a
+read-only Nginx container behind the VPS's existing Traefik proxy. The
+reproducible service definition and verification command live in
+`ops/media-origin/`.
+
+## Profexor 3D Wordmark
+
+The animated hero and footer share a versioned high-poly Profexor mesh and a
+lower-density mouse hitbox. The existing Three.js/GPGPU animation engine and
+its internal `artefakt` model key are intentionally unchanged.
+
+The deterministic generator, topology checks, and immutable-cache-safe bundle
+integration workflow live in `tools/profexor-model/`.
 
 ## Running Locally
 
