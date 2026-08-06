@@ -1,0 +1,23 @@
+services:
+  media:
+    image: nginx:alpine
+    container_name: profexor-media
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /var/www/media/wp-content/uploads:/usr/share/nginx/html/wp-content/uploads:ro
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.profexor-media.rule=Host(`media.profexer.cloud`)
+      - traefik.http.routers.profexor-media.entrypoints=websecure
+      - traefik.http.routers.profexor-media.tls=true
+      - traefik.http.routers.profexor-media.tls.certresolver=mytlschallenge
+      - traefik.http.services.profexor-media.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+    name: n8n_default

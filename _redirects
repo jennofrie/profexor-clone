@@ -1,2 +1,2 @@
-# Media assets served from VPS at media.profexor.cloud
+# Media assets served from VPS at media.profexer.cloud
 /wp-content/uploads/*  https://media.profexer.cloud/wp-content/uploads/:splat  200
